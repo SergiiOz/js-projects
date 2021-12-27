@@ -63,7 +63,8 @@ const modals = () => {
   //run by link
   bindModal('.phone_link', '.popup', '.popup .popup_close');
 
-  showModalByTime('.popup', 3);
+  //run by time
+  // showModalByTime('.popup', 6);
 };
 
 export default modals;
