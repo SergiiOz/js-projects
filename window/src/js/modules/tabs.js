@@ -1,4 +1,10 @@
-const tabs = (headerSelector, tabSelector, contentSelector, activeClass) => {
+const tabs = (
+  headerSelector,
+  tabSelector,
+  contentSelector,
+  activeClass,
+  display = '.block'
+) => {
   const header = document.querySelector(headerSelector);
   //pseudo array selectors
   const tabs = document.querySelectorAll(tabSelector);
@@ -10,13 +16,15 @@ const tabs = (headerSelector, tabSelector, contentSelector, activeClass) => {
     });
 
     tabs.forEach((item) => {
-      item.classList.remove(activeClass);
+      // we get class with '.', and need remove '.' example: '.active' -> 'active'
+      // /\./ - regular expression, search '.' and replace -> empty string ''
+      item.classList.remove(activeClass.replace(/\./, ''));
     });
   };
 
   const showTabContent = (index = 0) => {
-    contents[index].style.display = 'block';
-    tabs[index].classList.add(activeClass);
+    contents[index].style.display = display.replace(/\./, '');
+    tabs[index].classList.add(activeClass.replace(/\./, ''));
   };
 
   hideTabContent();

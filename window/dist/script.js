@@ -17812,6 +17812,8 @@ __webpack_require__.r(__webpack_exports__);
  //event fires when the initials HTML document has been completely loaded and parsed
 
 window.addEventListener('DOMContentLoaded', function () {
+  'use strict';
+
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider ', '.glazing_block', '.glazing_content', 'active');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
@@ -17835,10 +17837,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.promise.finally */ "./node_modules/core-js/modules/es.promise.finally.js");
 /* harmony import */ var core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "./node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
@@ -17847,7 +17852,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var forms = function forms() {
   var allForms = document.querySelectorAll('form');
-  var allInputs = document.querySelectorAll('input'); //create object with text message
+  var allInputs = document.querySelectorAll('input');
+  var phoneInputs = document.querySelectorAll('input[name = "user_phone"]');
+  phoneInputs.forEach(function (item) {
+    item.addEventListener('input', function () {
+      // '/|D/'  - if user write we search not number -> change to empty string ''
+      item.value = item.value.replace(/\D/, '');
+    });
+  }); //create object with text message
 
   var message = {
     loading: 'Loading...',
@@ -17901,7 +17913,7 @@ var forms = function forms() {
       item.appendChild(statusMessage); //if we pass the form to constructor, object automatic will read all field from form
 
       var formData = new FormData(item);
-      postData('../../assets/server.php', formData).then(function (res) {
+      postData('assets/server.php', formData).then(function (res) {
         console.log(res);
         statusMessage.textContent = message.success;
       }).catch(function () {
@@ -17986,7 +17998,8 @@ var modals = function modals() {
 
   bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close'); //run by link
 
-  bindModal('.phone_link', '.popup', '.popup .popup_close'); //run by time
+  bindModal('.phone_link', '.popup', '.popup .popup_close'); // bindModal('.popup_calc_btn');
+  //run by time
   // showModalByTime('.popup', 6);
 };
 
